@@ -12,6 +12,14 @@ module.exports = () => {
     // middleware
     app.use(bodyParser.json());
 
+    // middleware para servir os arquivos estáticos
+    app.use(express.static('frontend/public'));
+
+    // Rota para a página inicial
+    app.get('/', (req, res) => {
+        res.sendFile(path.join(__dirname, '../frontend/public/index.html'));
+    });
+
     // ENDPOINTS
     consign({cwd: 'backend'})
         .then('data')
