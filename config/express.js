@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const config = require('config');
 const consign = require('consign');
+const routes = require('../backend/routes/routes');
 
 module.exports = () => {
     const app = express();
@@ -20,12 +21,7 @@ module.exports = () => {
         res.sendFile(path.join(__dirname, '../frontend/public/index.html'));
     });
 
-    // ENDPOINTS
-    consign({cwd: 'backend'})
-        .then('data')
-        .then('controllers')
-        .then('routes')
-        .into(app);
+    app.use('/pokemons/', routes);
 
     return app;
 }
